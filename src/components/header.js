@@ -37,8 +37,8 @@ const Header = ({ siteTitle }) => (
               </Link>
             </li>
             <li className={navLinkItem}>
-              <Link to="/git" className={navLinkText}>
-                github tutorial
+              <Link to="/tutorials" className={navLinkText}>
+                tutorials
               </Link>
             </li>
           </ul>

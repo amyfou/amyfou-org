@@ -12,7 +12,7 @@ module.exports = {
     title: `amyfou.org`,
     description: `This is Amy's starter site on Gatsby.`,
     author: `amyfou`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    siteUrl: `https://amyfouorgmain.gatsbyjs.io/`,
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -21,6 +21,8 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+        name: `tutorials`,
+        path: `${__dirname}/tutorials`,
       },
     },
     `gatsby-transformer-sharp`,
