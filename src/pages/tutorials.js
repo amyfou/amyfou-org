@@ -8,13 +8,15 @@ const TutorialsPage = ({ data }) => {
   return (
     <Layout pageTitle="Tutorials">
       <ul>
-      {
-        data.allFile.nodes.map(node => (
-          <li key={node.name}>
-            {node.name}
-          </li>
-        ))
-      }
+        {
+          data.allMdx.nodes.map((node) => (
+            <article key={node.id}>
+              <h2>{node.frontmatter.title}</h2>
+              <p>Posted: {node.frontmatter.date}</p>
+              <p>{node.excerpt}</p>
+            </article>
+          ))
+        }
       </ul>
     </Layout>
   )
@@ -22,9 +24,14 @@ const TutorialsPage = ({ data }) => {
 
 export const query = graphql`
   query {
-    allFile {
+    allMdx(sort: { frontmatter: { title: DESC }}) {
       nodes {
-        name
+        frontmatter {
+          date(formatString: "MMMM D, YYYY")
+          title
+        }
+        id
+        excerpt
       }
     }
   }`
