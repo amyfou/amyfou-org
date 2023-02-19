@@ -76,45 +76,19 @@ const IndexPage = () => (
       <h1>
           Welcome to <b>amyfou.org!</b>
       </h1>
-        <StaticImage
-          src="../images/canis2.png"
-          loading="eager"
-          width={95}
-          quality={95}
-          formats={["auto", "webp", "avif"]}
-          alt="a silhouette of a dog"
-          style={{ marginBottom: `var(--space-3)` }}
-        />
-        <StaticImage
-          src="../images/canis3.png"
-          loading="eager"
-          width={95}
-          quality={95}
-          formats={["auto", "webp", "avif"]}
-          alt="a silhouette of a dog"
-          style={{ marginBottom: `var(--space-3)` }}
-        />
- 
       </div>
-      {/* <ul className={styles.list}>
-        {links.map(link => (
-          <li key={link.url} className={styles.listItem}>
-            <a
-              className={styles.listItemLink}
-              href={`${link.url}${utmParameters}`}
-            >
-              {link.text} ↗
-            </a>
-            <p className={styles.listItemDescription}>{link.description}</p>
-          </li>
-        ))}
-      </ul>
-      {moreLinks.map((link, i) => (
-        <React.Fragment key={link.url}>
-          <a href={`${link.url}${utmParameters}`}>{link.text}</a>
-          {i !== moreLinks.length - 1 && <> · </>}
-        </React.Fragment>
-      ))} */}
+      <div>
+      <StaticImage
+          src="../images/gracieNikoPlayBow.jpg"
+          loading="eager"
+          //width={95}
+          quality={95}
+          formats={["auto", "webp", "avif"]}
+          alt="two dogs are play bowing at each other"
+          style={{ marginBottom: `var(--space-3)` }}
+        />
+      </div>
+
     </Layout>
   )
 
