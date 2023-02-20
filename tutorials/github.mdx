@@ -4,10 +4,37 @@ date: "2023-02-19"
 slug: "github-tutorial"
 ---
 
-This is my first tutorial! Isn't it *great*?
+# Getting Started 
 
-Some of my **favorite** things are:
+## installation
+Follow the installation instructions provided by Gus Hahn Powell.  
+Note that the instructions presume you're using Ubuntu;
+the steps for Debian are the same.
 
-* Petting dogs
-* Singing
-* Eating potato-based foods
+ 	[Git Basics](https://parsertongue.org/tutorials/git-basics/)
+
+You are welcome to follow the whole tutorial, but our project does not require 
+that you create your own repo.
+
+## Working with our repo
+
+### The GitHub Workflow
+In short, the basic GitHub workflow is `checkout > add > commit > push`. This workflow is described more in detail below.
+
+#### Checkout
+- `git checkout <branch>` switches your branch to the one you specified, and `git checkout -b <new-branch> <starting-point>` will make a new branch and switch to it, using another branch as a starting point (which is typically the main branch).
+
+- Branches allow us to make changes separately and merge them when we are ready, rather than having your code constantly be changed by someone else from underneath you.
+
+#### Add
+- After you have changed a file, you can run `git add <file>` to add a file to your future commit (these files are now in what is called the *staging area*). To remove a file from the staging area, you may run `git reset <file>`.
+  - A commit contains all of the changes that you (or others) add, and is like a snapshot of the repository's state at that time. This allows us to keep track of changes that are made in an efficient manner.
+
+#### Commit
+- Once you have made all of the changes that you want to make for a particular issue/subset of issues, you can run `git commit -m "<message>"` to make a commit for these changes.
+
+- To see what a commit/commit message should look like, take a look at previous commits in this repository. Your changes in a commit should be somewhat related to each other, so that way your message is succinct and changes are easier to track.
+
+#### Push
+- Once you are ready to send your commit(s) to the GitHub repository, you may run `git push origin <branch>` to publish your changes.
+  - Note that while you may reverse your changes on your local branch if you make a mistake (for example, `git reset HEAD~1` will undo your most recent commit), it is very frowned upon to do this after your changes have been already pushed. Before you push, make sure you have made any corrections that you want to make first.

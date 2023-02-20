@@ -16,6 +16,7 @@ const TutorialsPage = ({ data }) => {
               </Link>
             </h2>
             <p>Posted: {node.frontmatter.date}</p>
+            <p>Excerpt: {node.excerpt}</p>
           </article>
         ))
       }
@@ -25,7 +26,7 @@ const TutorialsPage = ({ data }) => {
 
 export const query = graphql`
   query {
-    allMdx(sort: { frontmatter: { date: DESC }}) {
+    allMdx(sort: { frontmatter: { title: ASC }}) {
       nodes {
         frontmatter {
           date(formatString: "MMMM D, YYYY")
@@ -33,6 +34,7 @@ export const query = graphql`
           slug
         }
         id
+        excerpt
       }
     }
   }
