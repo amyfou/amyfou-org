@@ -11,14 +11,37 @@ Follow the installation instructions provided by Gus Hahn Powell.
 Note that the instructions presume you're using Ubuntu;
 the steps for Debian are the same.
 
- 	[Git Basics](https://parsertongue.org/tutorials/git-basics/)
+ 	[Gus Hahn Powell's Git Basics](https://parsertongue.org/tutorials/git-basics/)
 
 You are welcome to follow the whole tutorial, but our project does not require 
 that you create your own repo.
 
 ## Working with our repo
 
+### First Installation
+
+Create and/or switch to the directory where you want our application to live. Then, from the command line in that directory, clone or pull these repositories:
+
+    `git clone https://github.com/arizona-linguistics/colrc-v2.git`
+
+Afterward, change to the newly-created directory and pull to make sure you have all of the current changes to the repository. Note that the default branch, "main," is the branch you should clone and/or pull.
+
+    `cd colrc-v2 && git pull`
+
+If you now type `git status` you will find that you are working on a 'branch' called 'main'.  
+We don't want you to do work in the 'main' branch.  Instead, we will each be working in a branch that's associated with 
+an 'issue' in our github repo.
+
+You will select and then be assigned (by Amy or John) an issue that we hope you'll work on.
+We ask that you do your work in a git branch that's named with the number or title of the issue you're working on.
+
+For example, if you're working on issue #242, writing unit tests, you'll create a local git branch 
+that's called 'issue242' or '242' or 'unitTests'. 
+
 ### The GitHub Workflow
+
+To create a new git branch and switch to that branch to begin work, use `git checkout -b <new-branch> main`
+
 In short, the basic GitHub workflow is `checkout > add > commit > push`. This workflow is described more in detail below.
 
 #### Checkout
@@ -28,7 +51,7 @@ In short, the basic GitHub workflow is `checkout > add > commit > push`. This wo
 
 #### Add
 - After you have changed a file, you can run `git add <file>` to add a file to your future commit (these files are now in what is called the *staging area*). To remove a file from the staging area, you may run `git reset <file>`.
-  - A commit contains all of the changes that you (or others) add, and is like a snapshot of the repository's state at that time. This allows us to keep track of changes that are made in an efficient manner.
+- A commit contains all of the changes that you (or others) add, and is like a snapshot of the repository's state at that time. This allows us to keep track of changes that are made in an efficient manner.
 
 #### Commit
 - Once you have made all of the changes that you want to make for a particular issue/subset of issues, you can run `git commit -m "<message>"` to make a commit for these changes.
@@ -37,4 +60,23 @@ In short, the basic GitHub workflow is `checkout > add > commit > push`. This wo
 
 #### Push
 - Once you are ready to send your commit(s) to the GitHub repository, you may run `git push origin <branch>` to publish your changes.
-  - Note that while you may reverse your changes on your local branch if you make a mistake (for example, `git reset HEAD~1` will undo your most recent commit), it is very frowned upon to do this after your changes have been already pushed. Before you push, make sure you have made any corrections that you want to make first.
+- Note that while you may reverse your changes on your local branch if you make a mistake (for example, `git reset HEAD~1` will undo your most recent commit), we ask that you do not this after your changes have been already pushed. Before you push, make sure you have made any corrections that you want to make first.
+
+### Status
+- At any time during your work, you can type `git status` to see the name of the branch you're working on,
+the files that have changed, and the relationship between your local branch and the state of the repo.
+
+### Open a Pull Request 
+-- when you believe your work is complete, you'll do a git push, then go to the repo and
+find your branch.  
+-- you'll see an option to open a pull request.  This will notify Amy and John that your
+work is ready to be reviewed, and if it passes all relevant tests, merged to main.
+
+### Merge and Delete the Branch
+-- the end of the process happens when we merge your changes into main.  You'll see that your
+pull request has been merged.
+-- you are now safe to delete your local branch, using `git branch -d <local-branch>`
+
+## Celebrate 
+
+At the end of this process we hope you'll celebrate your prowess and boast your excellence far and wide.
