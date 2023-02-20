@@ -39,6 +39,6 @@ export const query = graphql`
     }
   }
 `
-export const Head = () => <Seo title="tutorals | amyfou.org" />
+export const Head = () => <Seo title="tutorals | amyfoudotorg" />
 
 export default TutorialsPage

@@ -7,9 +7,9 @@ import * as styles from "../components/index.module.css"
 
 const IndexPage = () => (
     <Layout>
-      <div className={styles.textCenter}>
+      <div className={styles.textLeft}>
       <h1>
-          Welcome to <b>amyfou.org!</b>
+          you have found <b>amyfou.org</b>
       </h1>
       </div>
       <div>
