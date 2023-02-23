@@ -26,7 +26,7 @@ const TutorialsPage = ({ data }) => {
 
 export const query = graphql`
   query {
-    allMdx(sort: { frontmatter: { title: ASC }}) {
+    allMdx(sort: { frontmatter: { date: DESC }}) {
       nodes {
         frontmatter {
           date(formatString: "MMMM D, YYYY")

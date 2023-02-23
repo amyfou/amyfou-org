@@ -1,0 +1,142 @@
+--- 
+title: "postgresql tutorial"
+date: "2023-02-23"
+slug: "postgresql-tutorial"
+---
+
+# How to write PSQL commands against our database from inside of Docker:
+
+## First access the console for the running psql container: colrc-v2-postgres-db 
+
+Up the development environment and access the Docker Desktop application.
+
+Find colrc-v2-postgres-db.
+
+At the far right of each running image is a set of three vertical dots. Click there and the system will open a terminal inside the container.
+
+This is what you should see:
+
+`#`
+
+This is the psql command line.  
+
+## Login to the colrc database
+
+To login to the db, type:
+
+``# psql -h localhost -p 5432 -d colrc -U postgres --password``
+
+You will be prompted for a password.  You can get the password from Amy or John or Alice or anyone else on the team whose done this process. 
+
+On successful login you should see this:
+
+``psql (12.12 (Debian 12.12-1.pgdg110+1))``
+``Type "help" for help.``
+
+You can now run psql commands at the command line.  
+
+## Run some fun commands
+
+### View and Describe Tables
+
+To see all of the tables in the database: `\dt;`
+To see the description of a table:  `\d+ [table_name];`
+
+### Count things
+
+You may need to create aggregate queries that count the number of rows matching a certain set of criteria.
+
+To count the number of records in a single table: `SELECT COUNT(*) FROM [table_name];`
+
+### View data in one table
+
+You can view all the entries in one or more columns in a single table with `SELECT [column_name] FROM [table_name];`
+Or `SELECT [column_name1], [column_name2] FROM [table_name];`
+
+### Get fancy by joining tables
+
+You can select data from two or more tables that are connected with a primary/foreign key relation, and display the data in one chart.  For example:
+
+First try this:
+
+`SELECT category, english, salish FROM stems` 
+
+and your query will return data that look like this:
+
+| category | english | salish |  
+| 1 | go out, singular and plural | acqaʔ |  
+| 2 | look at                     | ac'x̣  |  
+
+etc.  
+
+The '1' is a foreign key to the table called stem_categories, and that table translates the 1 (and 2, and 3) from stems.category into values like 'noun', 'verb' and 'other'.
+
+When you run a query that returns lots of rows, you can click the space bar to advance through all the rows, or `q` to get out of the table and return to the command line prompt.
+
+You can running the following command to translate that '1' into its value from the stem_categories table.
+
+`SELECT value, english, salish FROM stems LEFT JOIN stem_categories ON stems.category=stem_categories.id`
+
+now you'll see this:
+
+verbs | go out, singular and plural | acqaʔ |  
+verbs | look at                     | ac'x̣  |  
+etc.
+
+In addition to joining tables, you can order the results with an ORDER BY clause:
+
+`SELECT value, english, salish FROM stems LEFT JOIN stem_categories ON stems.category=stem_categories.id order by value, english;`
+
+This will return results ordered first by 'value' (alphabetically, so 'nouns' will all appear first), and then by the English translation.
+
+And you can filter the results so that you only return rows that match some criterion you state:
+
+`SELECT value, english, salish FROM stems LEFT JOIN stem_categories ON stems.category=stem_categories.id WHERE english like '%horse%' order by value, english;`
+
+The above command should return this:
+
+colrc=# 
+ value |                 english                  |   salish    |  
+-------+------------------------------------------+-------------|  
+ nouns | horse collar, necklace                   | s-q'ɛl'-ɛps |  
+ nouns | horse, pet, domestic animal              | ɛsčíčɛʔ     |  
+ verbs | be black (of horses)                     | q'ʷəd(u-)   |  
+ verbs | be well-shaped (as workhorse)            | mɛč'        |  
+ verbs | dive from land (face in horseshoe curve) | us-əlš      |  
+ verbs | gray (as horse)                          | x̣iy         |  
+(6 rows)
+
+Note that percent sign is a wildcard characater that matches any number of characters in its position.  If we don't use the "%", we try:
+
+`SELECT value, english, salish FROM stems LEFT JOIN stem_categories ON stems.category=stem_categories.id WHERE english like 'horse' order by value, english;`
+
+and get no results at all because there are no English translations that contain ONLY the string 'horse'.
+
+english;
+ value | english | salish |  
+-------+---------+--------|  
+(0 rows)
+
+If we put the wildcard on the right of the string, like this:
+
+`SELECT value, english, salish FROM stems LEFT JOIN stem_categories ON stems.category=stem_categories.id WHERE english like 'horse%' order by value, english;`
+
+We get results in which the English translation begins with 'horse...'
+
+ value |           english           |   salish    |  
+-------+-----------------------------+-------------|  
+ nouns | horse collar, necklace      | s-q'ɛl'-ɛps |  
+ nouns | horse, pet, domestic animal | ɛsčíčɛʔ     |  
+(2 rows)
+
+We can even combine counting/aggregate queries with all of this and count the number of entries in different categories that meet our criteria:
+                                                               
+`SELECT value, COUNT(*) FROM stems LEFT JOIN stem_categories ON stems.category=stem_categories.id WHERE english like '%horse%' GROUP BY stem_categories.value;`
+
+Should return this:
+
+ value | count |  
+-------+-------|  
+ verbs |     4 |  
+ nouns |     2 |  
+(2 rows)
