@@ -3,7 +3,6 @@ title: "postgresql tutorial"
 date: "2023-02-23"
 slug: "postgresql-tutorial"
 ---
-
 # How to write PSQL commands against our database from inside of Docker:
 
 ## First access the console for the running psql container: colrc-v2-postgres-db 
@@ -64,8 +63,10 @@ First try this:
 and your query will return data that look like this:
 
 | category | english | salish |  
+| - | - | - | 
 | 1 | go out, singular and plural | acqaʔ |  
 | 2 | look at                     | ac'x̣  |  
+
 
 etc.  
 
@@ -79,8 +80,11 @@ You can running the following command to translate that '1' into its value from 
 
 now you'll see this:
 
-verbs | go out, singular and plural | acqaʔ |  
-verbs | look at                     | ac'x̣  |  
+| category | english | salish |  
+| - | - | - | 
+| verbs | go out, singular and plural | acqaʔ |  
+| verbs | look at                     | ac'x̣  |  
+
 etc.
 
 In addition to joining tables, you can order the results with an ORDER BY clause:
@@ -95,15 +99,16 @@ And you can filter the results so that you only return rows that match some crit
 
 The above command should return this:
 
-colrc=# 
- value |                 english                  |   salish    |  
--------+------------------------------------------+-------------|  
- nouns | horse collar, necklace                   | s-q'ɛl'-ɛps |  
- nouns | horse, pet, domestic animal              | ɛsčíčɛʔ     |  
- verbs | be black (of horses)                     | q'ʷəd(u-)   |  
- verbs | be well-shaped (as workhorse)            | mɛč'        |  
- verbs | dive from land (face in horseshoe curve) | us-əlš      |  
- verbs | gray (as horse)                          | x̣iy         |  
+
+| value |                 english                  |   salish    |  
+| - | - | - |   
+| nouns | horse collar, necklace                   | s-q'ɛl'-ɛps |  
+| nouns | horse, pet, domestic animal              | ɛsčíčɛʔ     |  
+| verbs | be black (of horses)                     | q'ʷəd(u-)   |  
+| verbs | be well-shaped (as workhorse)            | mɛč'        |  
+| verbs | dive from land (face in horseshoe curve) | us-əlš      |  
+| verbs | gray (as horse)                          | x̣iy   |    
+
 (6 rows)
 
 Note that percent sign is a wildcard characater that matches any number of characters in its position.  If we don't use the "%", we try:
@@ -112,9 +117,11 @@ Note that percent sign is a wildcard characater that matches any number of chara
 
 and get no results at all because there are no English translations that contain ONLY the string 'horse'.
 
-english;
- value | english | salish |  
--------+---------+--------|  
+
+| value | english | salish |  
+| - | - | - | 
+| | | |
+
 (0 rows)
 
 If we put the wildcard on the right of the string, like this:
@@ -123,10 +130,11 @@ If we put the wildcard on the right of the string, like this:
 
 We get results in which the English translation begins with 'horse...'
 
- value |           english           |   salish    |  
--------+-----------------------------+-------------|  
- nouns | horse collar, necklace      | s-q'ɛl'-ɛps |  
- nouns | horse, pet, domestic animal | ɛsčíčɛʔ     |  
+ |value |           english           |   salish    | 
+ | - | - | - |  
+ | nouns | horse collar, necklace      | s-q'ɛl'-ɛps |  
+ | nouns | horse, pet, domestic animal | ɛsčíčɛʔ     |  
+
 (2 rows)
 
 We can even combine counting/aggregate queries with all of this and count the number of entries in different categories that meet our criteria:
@@ -135,8 +143,9 @@ We can even combine counting/aggregate queries with all of this and count the nu
 
 Should return this:
 
- value | count |  
--------+-------|  
- verbs |     4 |  
- nouns |     2 |  
+| value | count |  
+| - | - |
+| verbs |     4 |  
+| nouns |     2 |  
+
 (2 rows)

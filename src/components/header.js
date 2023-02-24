@@ -19,76 +19,57 @@ const Header = ({ siteTitle }) => (
       justifyContent: `space-between`,
     }}
   >
-    <Link
-      to="/"
-      style={{
-        fontSize: `var(--font-sm)`,
-        textDecoration: `none`,
-      }}
-    >
+    <Link to="/">
       {siteTitle}
     </Link>
-    <div className={container}>
-      <nav>
-          <ul className={navLinks}>
-            <li className={navLinkItem}>
-              <Link to="/" className={navLinkText}>
-                home
-              </Link>
-            </li>
-            <li className={navLinkItem}>
-              <Link to="/tutorials" className={navLinkText}>
-                tutorials
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
+    <Link to="/tutorials">
+      tutorials
+    </Link>
+    <StaticImage
+        src="../images/canis1.png"
+        loading="eager"
+        width={64}
+        quality={95}
+        formats={["auto", "webp", "avif"]}
+        alt="dog silhouettes"
+        style={{ marginBottom: `var(--space-3)` }}
+      /> 
+    <StaticImage
+        src="../images/canis2.png"
+        loading="eager"
+        width={64}
+        quality={95}
+        formats={["auto", "webp", "avif"]}
+        alt=""
+        style={{ marginBottom: `var(--space-3)` }}
+      />
       <StaticImage
-          src="../images/canis1.png"
-          loading="eager"
-          width={64}
-          quality={95}
-          formats={["auto", "webp", "avif"]}
-          alt="dog silhouettes"
-          style={{ marginBottom: `var(--space-3)` }}
-        /> 
+        src="../images/canis3.png"
+        loading="eager"
+        width={64}
+        quality={95}
+        formats={["auto", "webp", "avif"]}
+        alt=""
+        style={{ marginBottom: `var(--space-3)` }}
+      />  
       <StaticImage
-          src="../images/canis2.png"
-          loading="eager"
-          width={64}
-          quality={95}
-          formats={["auto", "webp", "avif"]}
-          alt=""
-          style={{ marginBottom: `var(--space-3)` }}
-        />
-        <StaticImage
-          src="../images/canis3.png"
-          loading="eager"
-          width={64}
-          quality={95}
-          formats={["auto", "webp", "avif"]}
-          alt=""
-          style={{ marginBottom: `var(--space-3)` }}
-        />  
-        <StaticImage
-          src="../images/canis4.png"
-          loading="eager"
-          width={64}
-          quality={95}
-          formats={["auto", "webp", "avif"]}
-          alt=""
-          style={{ marginBottom: `var(--space-3)` }}
-        /> 
-      <StaticImage
-          src="../images/canis5.png"
-          loading="eager"
-          width={64}
-          quality={95}
-          formats={["auto", "webp", "avif"]}
-          alt=""
-          style={{ marginBottom: `var(--space-3)` }}
-        /> 
+        src="../images/canis4.png"
+        loading="eager"
+        width={64}
+        quality={95}
+        formats={["auto", "webp", "avif"]}
+        alt=""
+        style={{ marginBottom: `var(--space-3)` }}
+      /> 
+    <StaticImage
+        src="../images/canis5.png"
+        loading="eager"
+        width={64}
+        quality={95}
+        formats={["auto", "webp", "avif"]}
+        alt=""
+        style={{ marginBottom: `var(--space-3)` }}
+      /> 
   </header>
 )
 

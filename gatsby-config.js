@@ -9,10 +9,10 @@
  */
 module.exports = {
   siteMetadata: {
-    title: `amyfoudotorg`,
+    title: `amyfou.net`,
     description: `This is Amy's starter site on Gatsby.`,
     author: `amyfou`,
-    siteUrl: `https://amyfouorgmain.gatsbyjs.io/`,
+    siteUrl: `https://amyfou.net/`,
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -45,6 +45,12 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
+        mdxOptions: {
+          remarkPlugins: [
+            // Add GitHub Flavored Markdown (GFM) support
+            require(`remark-gfm`),
+          ],
+        },
       },
       
     },

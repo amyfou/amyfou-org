@@ -9,7 +9,7 @@ const IndexPage = () => (
     <Layout>
       <div className={styles.textCenter}>
       <h1>
-          you have found <b>amyfou.org</b>
+          you have found <b>amyfou.net</b>
       </h1>
       </div>
       <div>
