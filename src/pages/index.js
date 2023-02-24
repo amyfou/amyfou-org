@@ -28,6 +28,6 @@ const IndexPage = () => (
   )
 
 
-export const Head = () => <Seo title="home | amyfou.org" />
+export const Head = () => <Seo title="home"/>
 
 export default IndexPage
