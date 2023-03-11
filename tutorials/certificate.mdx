@@ -1,0 +1,76 @@
+---
+title: "renewing our SSL certificate"
+date: "2023-03-11"
+slug: "certificate-tutorial"
+---
+
+# Renewing our certificate
+
+The production version of the colrc application runs with `https`, meaning that
+all traffic to and from the app is encrypted.  This is a very important, and it
+requires that we maintain a certificate verifying that our domain is registered to us 
+and the URL we're running at is registered with that domain.
+
+Every so often, that certificate requires renewal.   
+
+For (waves hands in the air) reasons, we have not automated our certificate 
+renewal process.  Yet.  Instead, we update the certificate manually.
+
+## Renew the certificate
+
+We use [letsencrypt](https://letsencrypt.org/) as our certificate generator.
+
+And we store our certificates in a directory that lives on our production server at the root of our project `./certbot`.
+This folder is not included in our github repo, for obvious reasons (don't share your certificates folder, pls).
+
+The `certbot` directory is ironically named because there's nothing `bot` about it.  But it contains a subdirectory called 
+`letsencrypt`.  Navigate into that directory, and run this command:
+
+```sudo certbot certonly```
+
+You'll see a dialog that looks like this:
+
+> How would you like to authenticate with the ACME CA?
+> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+> 1: Spin up a temporary webserver (standalone)
+> 2: Place files in webroot directory (webroot)
+> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+> Select the appropriate number [1-2] then [enter] (press 'c' to cancel):  
+
+Select option 2.
+
+## Check that you have a new certificate.
+
+Navigate to the subfolder called `live`, > `thecolrc.org`, then run `ls -la`. You'll see four 
+files that have the extension .pem.  They should have the correct date.
+
+You can also navigate back up one level and over to `archive`.  That folder contains the old and new `pem` files.
+
+If all's well, we're ready to go!
+
+## Down and build/up the app
+
+In our production environment, we use a shell script `disaster.sh` to bring the system down. 
+
+Execute this script by navigating to the root of `colrc-v2` and typing:
+
+```./disaster.sh```   
+
+When prompted for the pwd, use the database password (not your sudo password).
+
+To bring the system back up, execute the build script (making sure that the script is set to 
+rebuild the images).
+
+```./build.sh```  
+
+Then keep your fingers and toes crossed that the system comes back up again.
+
+When it reconstructs its mapped drive, it'll find the new (valid) certificate.
+
+Navigate to the site from a browser at https://thecolrc.org and it (should) show that the site
+is secured.
+
+If it doesn't, um, contact Amy and John.  We'll cry and then see if we can fix it.
+
+
+

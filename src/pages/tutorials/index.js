@@ -32,11 +32,6 @@ export const query = graphql`
           date(formatString: "MMMM D, YYYY")
           title
           slug
-          embeddedImagesLocal {
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
         }
         id
         excerpt

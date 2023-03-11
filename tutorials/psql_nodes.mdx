@@ -3,7 +3,29 @@ title: "postgresql tutorial"
 date: "2023-02-23"
 slug: "postgresql-tutorial"
 ---
-# How to write PSQL commands against our database from inside of Docker:
+
+# Using the PSQL command line interface (CLI):
+
+This tutorial assumes that you are running our colrc-v2 development environment on
+your local machine.  The application must be up and all images must be healthy.  We
+assume you're using docker desktop.
+
+If you decide to work remoately on our azure virtual machine, you can still
+follow this tutorial, but you'll need to figure out how to `exec into a running image` in
+docker at the command line.  The command will look something like this:
+
+```sudo docker run -it name-of-image bash```
+
+To get the names of your running images, you can use:
+
+```sudo docker image ls```
+
+In place of `name-of-image` you might need to use the image ID, which is a
+fairly long number that appears on the left in the image list.
+
+There's no reason you couldn't use these commands on any db that you have running
+locally, though.  So if you've built your own postgres db locally, you can
+modify these commands to investigate it!
 
 ## First access the console for the running psql container: colrc-v2-postgres-db 
 

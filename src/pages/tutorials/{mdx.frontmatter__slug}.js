@@ -19,12 +19,7 @@ export const query = graphql`
       frontmatter {
         title
         date(formatString: "MMMM D, YYYY")
-        embeddedImagesLocal {
-          childImageSharp {
-            gatsbyImageData
-          }
         }
-      }
     }
   }
 `
