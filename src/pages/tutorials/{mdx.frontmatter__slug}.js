@@ -4,13 +4,14 @@ import Seo from '../../components/seo'
 import { graphql } from 'gatsby'
 
 const Tutorials = ({ data, children }) => {
+
   return (
     <Layout pageTitle={data.mdx.frontmatter.title}>
       <p>{data.mdx.frontmatter.date}</p>
       {children}
     </Layout>
-  )
-}
+  );
+};
 
 export const query = graphql`
   query ($id: String) {
@@ -18,6 +19,11 @@ export const query = graphql`
       frontmatter {
         title
         date(formatString: "MMMM D, YYYY")
+        embeddedImagesLocal {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
       }
     }
   }

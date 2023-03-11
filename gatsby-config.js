@@ -15,17 +15,22 @@ module.exports = {
     siteUrl: `https://amyfou.net/`,
   },
   plugins: [
+    `gatsby-transformer-sharp`,
     `gatsby-plugin-image`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `tutorials`,
+        path: `${__dirname}/tutorials`,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
-        name: `tutorials`,
-        path: `${__dirname}/tutorials`,
       },
     },
-    `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -49,10 +54,28 @@ module.exports = {
           remarkPlugins: [
             // Add GitHub Flavored Markdown (GFM) support
             require(`remark-gfm`),
+            {
+              resolve: `gatsby-plugin-mdx`,
+              options: {
+                maxWidth: 1200,
+              }
+            }
           ],
         },
+      },     
+    },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 800,
+            },
+          },
+        ],
       },
-      
     },
   ],
 }

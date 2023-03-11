@@ -1,0 +1,149 @@
+---
+title: "using the terminal locally and remotely"
+date: "2023-03-11"
+slug: "terminal-tutorial"
+embeddedImagesLocal: 
+    - lsla.png
+---
+
+
+# Basic navigation in terminal
+
+Most of us rarely use the terminal application to interact with our computers,
+but in coding it's very useful to be able to do this.  Using the terminal application on
+your machine is sometimes called using the `command line`, and many programs we
+use come with both a graphical user interface (gui) and a command line interface (cli).
+
+## Open a terminal window
+
+This means go to your computer's terminal application.  On a windows
+machine, we are talking about the regular `terminal` application, not PowerShell. This is 
+important, because windows PowerShell has its own syntax and it operates on
+weirdly different assumptions than a regular terminal application does.  Windows 10 and later
+does have a `windows terminal` application, although in older versions it was called
+the `command prompt` or `cmd` window.  We don't use that one either.
+
+On windows, we use the Debian terminal.  Debian is a Linux system, so using
+the terminal means you'll be using Linux commands.  On a Mac, the terminal 
+application is just called `terminal`, and it uses Linux commands.
+
+So to open a terminal, you can go to your apps or toolbar, find the correc
+application (wsl Debian or terminal), and open it up.
+
+## Working at the command line
+
+
+
+When you open a terminal, you'll see a little string of characters on the left that 
+typically include your username.  For example, I see this:
+
+```amy@SBS-7719 ~ %```  
+
+My username is `amy`, and I'm on a machine called `SBS-7719`.  The tilde tells me 
+I'm at my home directory, and the `%` says that I'm at the beginning of a 
+command line.
+
+You can type `whomai` and the system will return your username, then give you a new
+command prompt, like this:
+
+    ```amy@SBS-7719 ~ % whoami```  
+    ```amy```  
+    ```amy@SBS-7719 ~ %```  
+
+You can type `pwd` for "print working directory" and find out where you are 
+in the local file system, then return you to the command prompt, like this:
+
+    ```amy@SBS-7719 ~ % pwd```  
+    ```/Users/amy```  
+    ```amy@SBS-7719 ~ %```  
+
+To see what files and directories are local to you, type `ls` or `ls -la`.  
+The `ls` command just lists file and directory names, and does not include hidden files. The `ls -la` command gives 
+you the filenames, permissions, sizes, etc for all files, including hidden ones.
+
+    ```amy@SBS-7719 ~ % ls```    
+    ```Desktop```  
+    ```Downloads```  
+    ``` [ etc ]```  
+    ```src```  
+    ```amy@SBS-7719 ~ %```  
+
+To move into a directory on the list, use `cd ./[directoryname]`, like this:
+
+    ```amy@SBS-7719 ~ % cd ./src```  
+    ```amy@SBS-7719 src %```  
+    ```amy@SBS-7719 ~ %``` 
+
+Now that we're in the `src` directory, we can use `ls -la` and not see a billion files.
+
+    ```amy@SBS-7719 src % ls -la```   
+    ```total 16```   
+    ```drwxr-xr-x   7 amy  staff   224 Feb 19 14:04 .```   
+    ```drwxr-xr-x  20 amy  staff   640 Mar 11 13:47 .. ```   
+    ```-rw-r--r--@  1 amy  staff  6148 Mar 11 14:02 .DS_Store ```   
+    ```drwxr-xr-x   8 amy  staff   256 Feb 19 14:39 components ```   
+    ```drwxr-xr-x  12 amy  staff   384 Mar 11 13:04 images```   
+    ```drwxr-xr-x   9 amy  staff   288 Feb 24 13:34 pages```   
+    ```drwxr-xr-x   3 amy  staff    96 Feb 18 17:38 templates```   
+
+in the above, we get list of file permissions, the number of files in each directory,
+the user who owns the directory, the group of that user, the size of the directory, an
+edited on date and the name of the directory.  Any directory name that begins with `.`
+is a hidden directory that you would not see if you used `ls` instead of `ls -la`.
+
+Here are more handy commands:
+- To move up one level, use `cd ..`.  To move up two levels, `cd ..\..`, and so forth.
+- To make a new directory, use `mkdir [directoryname]`
+- To make a new textfile, use `touch [filename]`
+- To open your VS code editor from wherever you are, use `code .`
+- To open a file with nano, use `nano [filename]`
+- To delete a file, use `rm [filename]`
+- To delete a directory and everything in it use `rm -rf [directoryname]`
+- To copy a file from another location to where you are, use `cp [filepath\sourcefile] .`
+- To copy a file from where you are to another location, use `cp [filename] [filepath\filename]`
+
+# Working remotely in an ssh session
+
+## Connecting to a remote machine via ssh
+
+To connect to a remote server, use `ssh [username]@[serverURL]`. 
+For example, when I log into our ms azure vm, I type `ssh avf@0.171.0.206`.
+When you get there, you'll either have to authenticate with a pwd or an ssh key.
+After successfully authenticating, you'll get a command prompt and you'll be able
+to use all the commands listed here (except `code .`)
+
+Note that in order to run docker on a machine you must have `sudo` ("superuser do") access
+to that machine.  If you attempt to run a command on a remote machine and it
+doesn't work, try again with `sudo` and a space before the command.
+
+### Using your VSCode as a texteditor on a remote machine
+
+In your local VSCode, find and install the 'Remote ssh` extension.  
+
+Open VS Code locally, and select `View` --> `Command Pallette` --> `Remote SSH:connect to host`.
+
+You'll be prompted to log in to the remote machine using the ssh command above.  
+Once you're authenticated, you can open a directory on the remote machine using the `File` --> `Open Folder` command.
+
+### Pulling up a browser with the dev environment on a remote machine
+
+Use the remote machine's URL instead of `localhost`.  For example, point a
+browser to 0.171.0.206:3000 if you're developing on the ms azure vm at that URL.
+
+### Leaving your SSH session
+
+When you're done working in a remote ssh session, end any processes
+that were running on the machine you logged into.  Bring down the dev 
+environment for example, by typing
+
+```sudo docker compose down```  
+
+Once everything's safely shut down, type `exit` to leave the session.
+
+
+
+
+
+
+
+
