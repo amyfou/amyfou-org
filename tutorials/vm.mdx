@@ -1,0 +1,116 @@
+---
+title: "spinning up a virtual machine"
+date: "2023-03-12"
+slug: "vm-tutorial"
+---
+
+# Spin up a virtual machine!
+
+What if you don't have the hardware necessary to work on a coding problem?  
+One alternative is to create a 'virtual machine' using a cloud service such as
+MS Azure (under the University's license), the University's [High Performance Computing Cluster](https://public.confluence.arizona.edu/display/UAHPC/Compute+Resources) or a pay-as-you-go cloud service
+such as [Vultr](https://www.vultr.com/), [Digital Ocean](https://www.digitalocean.com/) or similar.
+
+## Advantages and disadvantages
+
+Spinning up a virtual machine (vm) allows you to easily select an operating system and provision
+the memory, ram and compute power you want or need for your project.  It also provides you with
+server admin and backups through your cloud provider.  While you're a University of Arizona student,
+you have access to Microsoft Azure services and to a High Performance Computing Cluster, so that
+you can create a vm at no additional cost to you.  These services are paid for by your tuition and fees.
+
+But this is by no means an all-purpose good idea.  When you create a virtual machine in a cloud service, you have even less privacy
+than you do on your own computer.  The work you do can be lost if the service unexpectedly
+stops, or you can be priced out if and when the provider changes their pricing or 
+conditions of use.  Further, if you're not able to use a university-sponsored account, these services
+charge monthly or by the minute/hour of use, and in the long run this can get expensive.
+
+Virtual machines are good for creating a computing environment you can use for a
+specific set of projects, projects that you are consistently backing up (i.e. via github or similar), and
+that you do not need to maintain for a long period of time.
+
+## For the COLRC-V2 team
+
+Amy has created a vm (informally known as 'Hopper') in the Microsoft Azure service.
+Students on the team can request an account on Hopper.  If you do, you would:
+
+1. contact Amy to get account credentials and set up your ssh key authentication; then
+2. let Amy know when you want to begin your work session (the machine must be started before you 
+connect, and stopped when you're done, as Azure counts minutes of use and eventually we'll run
+out of university-sponsored time)
+3. agree to follow a set of protocols to ensure that your work can be saved separately
+from the work done by other students on the machine, and to always close out your sessions
+fully when you're done.
+4. use the `working remotely via terminal` tutorial to learn how to work on a remote machine.
+
+## For any purpose you'd like
+
+You can spin up your own VM any time by accessing the [MS Azure portal](https://azure.microsoft.com/en-us/get-started/azure-portal) and signing
+in with your UA NetID and password.  From there, you can go to services > virtual machines.
+
+Follow the prompts to select the resources you want or need, and create your machine!
+
+Don't worry about making mistakes - these machines can be removed quite easily, and the setup
+process does not take long.
+
+Once your machine actually builds, you'll see a URL that you can use to ssh into the terminal. Your NetID
+will be your username, and your user account will have sudo access.  You can then follow the
+`working remotely via terminal` tutorial to use the machine.
+
+Each time you're done working in your vm, you'll exit it and then stop the machine
+from your MS Azure portal.  The next time you'd like to work, you'll start the
+machine from the portal.
+
+## Your macine, for the COLRC-v2
+
+If you create a machine for our project, here are the specs Amy used, I know these work.
+
+- Debian 11
+- Standard D2s v3 (2 vcpus, 8 GiB memory)
+
+Additionally, our development app requires its own network.
+
+- On the Networking tab, you need to set up inbound and outbound port rules
+to allow traffic to and from ports 3000, 4000, 8080, and 80.
+
+Once you've spun up your machine, you'll need to install git and docker.  You'll probably already have
+python3, but you'll need pip3 as well.  Once that's done, clone 
+the repo. Then set up the development environment as you would on your own machine, following the
+instructions in the readme In the frontend code, look for App.js at the root.  There are two
+`clients` configured after the import statements.  Each client needs a uri.
+
+Replace the uri stem (i.e. localhost) with the URL of your vm.  Keep the ports (:8080 and :4000).
+
+Then build and up as usual.
+
+Once the system is up, go to your 8080/console in a browser.  Go to the `tables` view.
+On each of these three tables:  `audiofiles`, `textfiles`, `elicitationfiles`, under `modify`, you'll
+find a computed field.  Edit the computed field - which is an SQL statement that
+tells the machine where it can find our pdf, png, wav and mp3 files.  
+
+In the SQL statement is a URL path.  Change the stem of that path to your machine URL:80.  
+
+Execute the SQL.
+
+At this point, your development environment should be working!  You do not have to down/up
+the machine after this step, it'll persist at least until you do a new gitpull that includes
+a modified database.
+
+Then, have fun!
+
+## Using the HPC Cluster
+
+This should be possible, but requies some additional research.  Folks with HPC
+accounts (= faculty like Amy, and others who Amy adds to her group) can spin up
+a vm to run a dockerized application like ours, but we have to first configure 
+it in a [singularity](https://docs.sylabs.io/guides/2.6/user-guide/singularity_and_docker.html) uber
+container.
+
+If you'd like to try to do this, let Amy know and she'll set you up with an HPC account!
+
+
+
+
+
+
+
