@@ -1,6 +1,6 @@
 ---
 title: "renewing our SSL certificate"
-date: "2023-03-11"
+date: "2023-06-9"
 slug: "certificate-tutorial"
 ---
 
@@ -18,13 +18,23 @@ renewal process.  Yet.  Instead, we update the certificate manually.
 
 ## Renew the certificate
 
+# what you need 
+
+- root access to the production server
+- access to the AWS Dashboard for the domain `thecolrc.org`
+
+# what you do
+
 We use [letsencrypt](https://letsencrypt.org/) as our certificate generator.
 
-And we store our certificates in a directory that lives on our production server at the root of our project `./certbot`.
-This folder is not included in our github repo, for obvious reasons (don't share your certificates folder, pls).
+And we store our certificates in a directory that lives on our production server at `/etc/letsencrypt`.  This folder is 
+owned by root. ssh into the production server, navigate to the root of `/colrc-v2` and
+down the application by running 
+```./disaster.sh```  
 
-The `certbot` directory is ironically named because there's nothing `bot` about it.  But it contains a subdirectory called 
-`letsencrypt`.  Navigate into that directory, and run this command:
+When the script prompts you for a pwd, use our *database* pwd, not your sudo pwd.  
+
+With the system down, `su` to `root`.  Navigate `/etc/letsencrypt`, and run this command:
 
 ```sudo certbot certonly```
 
@@ -32,12 +42,15 @@ You'll see a dialog that looks like this:
 
 > How would you like to authenticate with the ACME CA?
 > - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-> 1: Spin up a temporary webserver (standalone)
-> 2: Place files in webroot directory (webroot)
+> 1: Nginx Web Server plugin (nginx)
+> 2: Spin up a temporary webserver (standalone)
+> 3: Place files in webroot directory (webroot)
 > - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-> Select the appropriate number [1-2] then [enter] (press 'c' to cancel):  
+> Select the appropriate number [1-3] then [enter] (press 'c' to cancel):  
 
 Select option 2.
+
+The certificate renewal should succeed, and Certbot will ask you for money.  Ignore that.
 
 ## Check that you have a new certificate.
 
@@ -46,17 +59,23 @@ files that have the extension .pem.  They should have the correct date.
 
 You can also navigate back up one level and over to `archive`.  That folder contains the old and new `pem` files.
 
-If all's well, we're ready to go!
+## Copy the new certificate into the correct directory
 
-## Down and build/up the app
+Navigate to the root of `/colrc-v2/certbot`.  Type `ls` and confirm that there is
+a subdirectory `letsencrypt`.  While in the `certbot` directory, delete the directory and all its contents:
 
-In our production environment, we use a shell script `disaster.sh` to bring the system down. 
+```rm -rf ./letsencrypt```
 
-Execute this script by navigating to the root of `colrc-v2` and typing:
+Then copy the newly refreshed directory into this place:
 
-```./disaster.sh```   
+``` cp -R /etc/letsencrypt .```
 
-When prompted for the pwd, use the database password (not your sudo password).
+Change the ownership of the letsencrypt directory in `certbot` to match your
+user credentials:
+
+``` chown -R [username]:[username] letsencrypt ```
+
+## Build and up the app
 
 To bring the system back up, execute the build script (making sure that the script is set to 
 rebuild the images).
