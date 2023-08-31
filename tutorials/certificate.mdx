@@ -22,6 +22,7 @@ renewal process.  Yet.  Instead, we update the certificate manually.
 
 - root access to the production server
 - access to the AWS Dashboard for the domain `thecolrc.org`
+- you MUST remember to use the DATABASE PASSWORD when you down the application
 
 # what you do
 
@@ -29,10 +30,13 @@ We use [letsencrypt](https://letsencrypt.org/) as our certificate generator.
 
 And we store our certificates in a directory that lives on our production server at `/etc/letsencrypt`.  This folder is 
 owned by root. ssh into the production server, navigate to the root of `/colrc-v2` and
-down the application by running 
+down the application by running, and using the DATABASE PASSWORD when prompted for a pwd.
+
 ```./disaster.sh```  
 
-When the script prompts you for a pwd, use our *database* pwd, not your sudo pwd.  
+When the script prompts you for a pwd, use our *database* pwd, not your sudo pwd.  If you enter the wrong
+pwd, stop.  You'll need to (a) remove the db_data folder, (b) copy the colrc_new.sql file as the colrc.sql file,
+(c) go to the `disaster.sh` script and comment out the pg_dump.  Then run that script, then up the application again.  ffs.  
 
 With the system down, `su` to `root`.  Navigate `/etc/letsencrypt`, and run this command:
 
