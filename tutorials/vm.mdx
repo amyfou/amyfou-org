@@ -46,7 +46,7 @@ click through to our allocation (named `HUM230002`) and look for the instance ca
 
 If you create your own machine for our project, here are the specs Amy used, I know these work.
 
-- Debian 11
+- Debian 11 (we use Ubuntu in our collective VMs, it's fine too)
 - at least 2 vcpus, 8 GiB memory
 
 ## Install or configure prereqs
@@ -60,10 +60,10 @@ In order for the dev environment to run properly, you'll need to make a couple o
 
 1. look for Frontend/App.js at the root  There are two
 `clients` configured after the import statements.  Each client needs a uri.
-Replace the uri stem (i.e. `localhost`) with the URL of your vm.  Keep the ports (:8080 and :4000).
+Replace the uri stem (i.e. `localhost`) with the IP address of your vm.  Keep the ports (:8080 and :4000).
 Then build and up as usual.
 
-2. Once the system is up, go to your 8080/console in a browser (contact Amy or John for the pwd if you need it).  Go to the `tables` view.
+2. Once the system is up, go to http.[yourIP]:8080/console in a browser (contact Amy or John for the pwd if you need it).  Go to the `tables` view.
 On each of these four tables:  `audiofiles`, `textfiles`, `textimages`, `elicitationfiles`, under `modify`, you'll
 find a computed field.  Edit the computed field - which is an SQL statement that
 tells the machine where it can find our pdf, png, wav and mp3 files.  In the SQL statement is a URL path.  Change the stem of that path (which is probably `localhost`) to `yourmachineURL:80`. 

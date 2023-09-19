@@ -15,6 +15,7 @@ module.exports = {
     siteUrl: `https://amyfou.net/`,
   },
   plugins: [
+    `gatsby-plugin-netlify`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-image`,
     {
